@@ -323,9 +323,9 @@ export class AppStoreServerAPIClient {
         parsedQueryParameters.append(queryParam, queryVal);
       }
     }
-    let requestBody: string | Buffer | undefined = undefined;
+    let requestBody: string | ArrayBuffer | undefined = undefined;
     if (body instanceof Buffer) {
-      requestBody = body;
+      requestBody = Uint8Array.from(body).buffer;
       if (contentType) {
         headers["Content-Type"] = contentType;
       }
@@ -380,7 +380,7 @@ export class AppStoreServerAPIClient {
     path: string,
     parsedQueryParameters: URLSearchParams,
     method: string,
-    requestBody: string | Buffer | undefined,
+    requestBody: string | ArrayBuffer | undefined,
     headers: { [key: string]: string },
   ) {
     return await fetch(this.urlBase + path + "?" + parsedQueryParameters, {

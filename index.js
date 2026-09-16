@@ -120,7 +120,7 @@ export class AppStoreServerAPIClient {
         }
         let requestBody = undefined;
         if (body instanceof Buffer) {
-            requestBody = body;
+            requestBody = Uint8Array.from(body).buffer;
             if (contentType) {
                 headers["Content-Type"] = contentType;
             }
